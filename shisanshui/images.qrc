@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="login">
+    <file>images/u1.jpg</file>
+    <file>images/history.jpg</file>
+    <file>images/u0.png</file>
+    <file>images/rank.jpg</file>
+    <file>images/f.png</file>
+    <file>images/history.jpg</file>
+    <file>images/history.jpg</file>
+    <file>images/room.png</file>
+    <file>images/u1.jpg</file>
+    <file>images/rank.png</file>
+    <file>images/a.jpg</file>
+    <file>images/history.jpg</file>
+    <file>images/首页.jpg</file>
+  </qresource>
+</RCC>
