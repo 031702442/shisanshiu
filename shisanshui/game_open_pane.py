@@ -1,7 +1,6 @@
 from PyQt5.Qt import *
 from game_open import Ui_Form
-import re
-from s1 import gameopen,PlayGame,getjson,getcard,gameend,submit
+from s1 import gameopen,PlayGame,getjson,getcard,gameend
 
 class GameOpenPane(QWidget,Ui_Form):
     play_game_signal=pyqtSignal()
