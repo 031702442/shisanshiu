@@ -16,6 +16,3 @@ class BangDingPane(QWidget,Ui_Form):
         jw_account = self.jw_acount_le.text()
         jw_password = self.jw_pwd_le.text()
         self.bangding_signal.emit(jw_account,jw_password)
-
-
-
