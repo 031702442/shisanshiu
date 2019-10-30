@@ -239,7 +239,6 @@ def comb(x,y):#求组合数
         return int(func(x)/(func(y)*func(x-y)))
     return 0;
 def value0(list16):#后墩计算权值
- 
     x=No7(list16)
     n9=len(x)#同花顺
     x=No6(list16)
