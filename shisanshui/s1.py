@@ -63,7 +63,7 @@ def regiseterAndBind(username,password,student_number,student_password):#注册�
     "Content-Type": 'application/json',
     }
 
-    response = requests.post(url=url, headers=headers, data=json.dumps(form_data), verify=False);
+    response = requests.post(url=url, headers=headers, data=json.dumps(form_data))
 
     #print(response.text)
     p=re.compile('status":(.+?),')
@@ -239,22 +239,22 @@ def comb(x,y):#求组合数
     if(x>=y):
         return int(func(x)/(func(y)*func(x-y)))
     return 0;
-def value0(list):#后墩计算权值
-    n1=0
-    x=No7(list)
+def value0(list16):#后墩计算权值
+ 
+    x=No7(list16)
     n9=len(x)#同花顺
-    x=No6(list)
+    x=No6(list16)
     n8=len(x)*35#炸弹
-    x=No3(list)
-    y=No2(list)
-    z=No6(list)
+    x=No3(list16)
+    y=No2(list16)
+    z=No6(list16)
     n7=(len(z)*comb(4,3)+len(x))*(len(y)+len(x)*comb(3,2)+len(z)*comb(4,2)-4)#葫芦
-    x=No5(list)
+    x=No5(list16)
     n6=0
     for y in x:
         n6=n6+comb(len(y),5)
     n6=n6-n9#同花
-    x=No4(list)
+    x=No4(list16)
     n5=0
     for y in x:
         i=1
@@ -262,14 +262,14 @@ def value0(list):#后墩计算权值
             i=i*len(z)
         n5=n5+i
     n5=n5-n9#顺子
-    x=No3(list)
-    y=No6(list)
+    x=No3(list16)
+    y=No6(list16)
     n4=len(x)*comb(36,2)+len(y)*comb(4,3)*comb(36,2)-n8-n7#三条
-    x=No1(list)
+    x=No1(list16)
     n3_2=len(x)*comb(35,1)#连对
-    x=No2(list)
-    y=No3(list)
-    z=No6(list)
+    x=No2(list16)
+    y=No3(list16)
+    z=No6(list16)
     n3_1=comb(len(x),2)+len(x)*len(y)*3+len(x)*len(z)*6+comb(len(y),2)*9+len(y)*len(z)*18+comb(len(z),2)*36
     n3_1=n3_1*35-n7-n3_2#两对
     n2=len(x)+len(y)*3+len(z)*6
@@ -415,7 +415,8 @@ def special(card):
     if(k==3):
         return card
     elif(k==2):
-        for i in range(0, len(l)):
+        len2=len(l)
+        for i in range(0, len2):
             if ((k < 3) and (l[i] >= j[k])):
                 l[i] -= j[k]
                 k += 1
@@ -545,8 +546,9 @@ def getcard(list1,list2):#出牌
     return [ca3,ca2,ca1]
 def getjson(id,list14):#转化json格式
     z=['','','']
-    for i in range(0,len(list14)):
-        for j in range(0,len(list14[i])):
+    len1=len(list14)
+    for i in range(0,len1):
+        for j in range(0,len1):
             z[i]=z[i]+list14[i][j]
             if(j!=len(list14[i])-1):
                 z[i]=z[i]+' '
@@ -574,9 +576,9 @@ if __name__ == '__main__':
     t=28
     '''
     try:
-        pid,token = login('1', 'wt8769054')
+        pid,token = login('x', 'xxx')
     except ValueError:
-        pid= login('1', 'wt8769054')
+        pid= login('x', 'xxx')
         exit()
     gameend(token, t)
     '''
@@ -584,7 +586,7 @@ if __name__ == '__main__':
     while(1):
 
         rank()
-        #regiseterAndBind('cjj','a123456','031702442','044118cjj')
+        
         pid,token,user_id = login('xxx', 'xxx')
         data = gameend(token,t)
         print(data)
@@ -593,7 +595,7 @@ if __name__ == '__main__':
         data = gameopen(token)
         #print(data)
         mycard = data[1].split(' ')
-        id = int(data[0])
+        id0 = int(data[0])
         # print(mycard)
         #mycard=random.sample(card,13)
         # mycard=['*6', '$2', '*10', '#2', '&8', '$Q', '$6', '*2', '$4', '*A', '&3', '*K', '#J']
@@ -603,22 +605,21 @@ if __name__ == '__main__':
             string=x[0]
             for i in range(1,13):
                 string=string+' '+x[i]
-            submit(str(token),id,string)
+            submit(str(token),id0,string)
         else:
-            string = getjson(id, getcard(mycard, othercard))
+            string = getjson(id0, getcard(mycard, othercard))
             #print(token,id,string['card'])
-            submit(str(token),id,string['card'])
+            submit(str(token),id0,string['card'])
         # print(mycard)
         #t2 = time.time()
         #print(t2 - t1)
         with open('历史对局.txt','a+')as a:
-            a.write(str(id))
+            a.write(str(id0))
             a.write('\n')
         gameend(token,t)
         t = id
         history(token,9)
         #print(string)
-      
         time.sleep(15)
 
 
