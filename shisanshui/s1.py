@@ -100,13 +100,13 @@ def gameopen(token):
     dict_data = str(json.loads(response.text))
     #print(dict_data)
     p=re.compile("'id': (.+?),")
-    id=p.findall(dict_data)
-    #print(id)
+    id4=p.findall(dict_data)
+    #print(id4)
     p=re.compile("card': '(.+?)'")
     card=p.findall(dict_data)[0]
     #print(card)
-    id.append(card)
-    return id
+    id4.append(card)
+    return id4
 def PlayGame(data,token):
     card=['$2','$3','$4','$5','$6','$7','$8','$9','$10','$J','$Q','$K','$A','&2','&3','&4','&5','&6','&7','&8','&9','&10','&J','&Q','&K','&A','*2','*3','*4','*5','*6','*7','*8','*9','*10','*J','*Q','*K','*A','#2','#3','#4','#5','#6','#7','#8','#9','#10','#J','#Q','#K','#A']
     mycard = data[1].split(' ')
@@ -115,7 +115,6 @@ def PlayGame(data,token):
     string = getjson(id3, getcard(mycard, othercard))
     submit(str(token), id3, string['card'])
     print(string)
-
     return string
 #def submit()
 def num(List):#将卡牌根据数字进行分类
@@ -340,7 +339,8 @@ def value2(list11):#前墩权值
 def max1(list12,n):#判断牌的大小
     x=num(list12)
     d=0
-    for i in range(0,len(x)):
+    len3=len(x)
+    for i in range(0,len3):
         if len(x[i])==n:
             d=i+1
     return d
@@ -405,7 +405,8 @@ def special(card):
     for i in y:
         l.append(len(i))
     del i
-    for i in range(0, len(l)):
+    len4=len(l)
+    for i in range(0, len4):
         if ((k < 3) and (l[i] >= j[k])):
             l[i] -= j[k]
             k += 1
@@ -544,7 +545,7 @@ def getcard(list1,list2):#出牌
     #print(value(v3, grade(['&3', '$4', '&8']), 0), value(v2, grade(['*K', '*10', '#J', '$Q', '*A']), 2), value(v1, grade(['$2', '#2', '*2', '*6', '$6']), 3))
     #print(value(v3,grade(ca3),0),value(v2,grade(ca2),2),value(v1,grade(ca1),3))
     return [ca3,ca2,ca1]
-def getjson(id,list14):#转化json格式
+def getjson(id5,list14):#转化json格式
     z=['','','']
     len1=len(list14)
     for i in range(0,len1):
@@ -552,14 +553,13 @@ def getjson(id,list14):#转化json格式
             z[i]=z[i]+list14[i][j]
             if(j!=len(list14[i])-1):
                 z[i]=z[i]+' '
-    data = {'id': id, 'card':z}
+    data = {'id': id5, 'card':z}
     #string = json.dumps(data, ensure_ascii=False)
     return data
 def submit(token,gid, mycard):
     header={
         'X-Auth-Token': token,
         'Content-Type':'application/json'
-
     }
     url = 'http://api.revth.com/game/submit'
     data = {
@@ -584,14 +584,11 @@ if __name__ == '__main__':
     '''
     rank()
     while(1):
-
         rank()
-        
         pid,token,user_id = login('xxx', 'xxx')
         data = gameend(token,t)
         print(data)
         #print(token)
-      
         data = gameopen(token)
         #print(data)
         mycard = data[1].split(' ')
