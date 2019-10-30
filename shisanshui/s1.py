@@ -110,10 +110,10 @@ def gameopen(token):
 def PlayGame(data,token):
     card=['$2','$3','$4','$5','$6','$7','$8','$9','$10','$J','$Q','$K','$A','&2','&3','&4','&5','&6','&7','&8','&9','&10','&J','&Q','&K','&A','*2','*3','*4','*5','*6','*7','*8','*9','*10','*J','*Q','*K','*A','#2','#3','#4','#5','#6','#7','#8','#9','#10','#J','#Q','#K','#A']
     mycard = data[1].split(' ')
-    id = int(data[0])
+    id3 = int(data[0])
     othercard = list(set(card) - set(mycard))
-    string = getjson(id, getcard(mycard, othercard))
-    submit(str(token), id, string['card'])
+    string = getjson(id3, getcard(mycard, othercard))
+    submit(str(token), id3, string['card'])
     print(string)
 
     return string
@@ -144,24 +144,24 @@ def color(List):#将卡牌根据花色进行分类
         elif x[0]=='#':
             colorlist[3].append(x)
     return colorlist
-def com(list):#组合
+def com(list1):#组合
     z=[]
-    for i in range(0,len(list)-1):
-        for j in range(i+1,len(list)):
+    for i in range(0,len(list1)-1):
+        for j in range(i+1,len(list1)):
             x=[]
-            x.append(list[i])
-            x.append(list[j])
+            x.append(list1[i])
+            x.append(list1[j])
             z.append(x)
             del x
     return z
-def f(list):#排序
-    x=num(list)
+def f(list2):#排序
+    x=num(list2)
     z=[]
     for y in x:
         z.extend(y)
     return z
-def No1(list):#连对
-    x=num(list)
+def No1(list3):#连对
+    x=num(list3)
     z=[]
     for i in range(0,12):
         if (len(x[i])>=2)and(len(x[i+1])>=2):
@@ -175,23 +175,23 @@ def No1(list):#连对
                     z.append(c)
                     del c
     return z
-def No2(list):#一对
+def No2(list4):#一对
     z=[]
-    x=num(list)
+    x=num(list4)
     for y in x:
         if len(y)==2:
             z.append(y)
     return z
-def No3(list):#三条
+def No3(list5):#三条
     z=[]
-    x=num(list)
+    x=num(list5)
     for y in x:
         if len(y)==3:
             z.append(y)
     return z
-def No4(list): #顺子
+def No4(list6): #顺子
     z=[]
-    x=num(list)
+    x=num(list6)
     for i in range(0,9):
         y=[]
         if len(x[i])>0:
@@ -205,24 +205,24 @@ def No4(list): #顺子
                 z.append(y)
         del y
     return z
-def No5(list):#同花
-    x=color(list)
+def No5(list7):#同花
+    x=color(list7)
     z=[]
     for y in x:
         if len(y)>=5:
            z.append(y)
     return z
-def No6(list):#炸弹
-    x=num(list)
+def No6(list8):#炸弹
+    x=num(list8)
     z=[]
     for y in x:
         if len(y)==4:
             z.append(y)
     return z
-def No7(list):#同花顺
+def No7(list9):#同花顺
     z=[]
     k=[]
-    x=No5(list)
+    x=No5(list9)
     if x!=None:
         for y in x:
             k=No4(y)
@@ -278,26 +278,26 @@ def value0(list):#后墩计算权值
     s=(n2+n3_1+n3_2+n4+n5+n6+n7+n8+n9)/1000
     z=[0/s,n2/s,(n3_1+n2)/s ,(n3_2+n3_1+n2)/s,(n4+n3_1+n3_2+n2)/s,(n5+n4+n3_2+n3_1+n2)/s,(n6+n5+n4+n3_1+n3_2+n2)/s,(n7+n6+n5+n4+n3_2+n3_1+n2)/s,(n8+n7+n6+n5+n4+n3_1+n3_2+n2)/s,(n9+n7+n6+n5+n4+n3_2+n3_1+n2)/s]#散牌、对子、两对、连对、三条、顺子、同花、葫芦、炸弹、同花顺
     return z
-def value1(list):#中墩计算权值
-    n1=0
-    x=No7(list)
+def value1(list10):#中墩计算权值
+  
+    x=No7(list10)
     n9=len(x)#同花顺
     n9=math.sqrt(n9)
     x=No6(list)
     n8=len(x)*35#炸弹
     n8=math.sqrt(n8)
-    x=No3(list)
-    y=No2(list)
-    z=No6(list)
+    x=No3(list10)
+    y=No2(list10)
+    z=No6(list10)
     n7=(len(z)*comb(4,3)+len(x))*(len(y)+len(x)*comb(3,2)+len(z)*comb(4,2)-4)#葫芦
     n7=math.sqrt(n7)
-    x=No5(list)
+    x=No5(list10)
     n6=0
     for y in x:
         n6=n6+comb(len(y),5)
     n6=n6-n9#同花
     n6=math.sqrt(n6)
-    x=No4(list)
+    x=No4(list10)
     n5=0
     for y in x:
         i=1
@@ -306,16 +306,16 @@ def value1(list):#中墩计算权值
         n5=n5+i
     n5=n5-n9#顺子
     n5=math.sqrt(n5)
-    x=No3(list)
-    y=No6(list)
+    x=No3(list10)
+    y=No6(list10)
     n4=len(x)*comb(36,2)+len(y)*comb(4,3)*comb(36,2)-n8-n7#三条
     n4=math.sqrt(n4)
-    x=No1(list)
+    x=No1(list10)
     n3_2=len(x)*comb(35,1)#连对
     n3_2=math.sqrt(n3_2)
-    x=No2(list)
-    y=No3(list)
-    z=No6(list)
+    x=No2(list10)
+    y=No3(list10)
+    z=No6(list10)
     n3_1=comb(len(x),2)+len(x)*len(y)*3+len(x)*len(z)*6+comb(len(y),2)*9+len(y)*len(z)*18+comb(len(z),2)*36
     n3_1=n3_1*35-n7-n3_2#两对
     n3_1=math.sqrt(n3_1)
@@ -326,10 +326,10 @@ def value1(list):#中墩计算权值
     s=(n2+n3_1+n3_2+n4+n5+n6+n7+n8+n9)/1000
     z=[0/s,n2/s,(n3_1+n2)/s ,(n3_2+n3_1+n2)/s,(n4+n3_1+n3_2+n2)/s,(n5+n4+n3_2+n3_1+n2)/s,(n6+n5+n4+n3_1+n3_2+n2)/s,(n7+n6+n5+n4+n3_2+n3_1+n2)/s,(n8+n7+n6+n5+n4+n3_1+n3_2+n2)/s,(n9+n7+n6+n5+n4+n3_2+n3_1+n2)/s]#散牌、对子、两对、连对、三条、顺子、同花、葫芦、炸弹、同花顺
     return z
-def value2(list):#前墩权值
-    x=No3(list)
-    y=No6(list)
-    z=No2(list)
+def value2(list11):#前墩权值
+    x=No3(list11)
+    y=No6(list11)
+    z=No2(list11)
     n3=len(x)+len(y)*4#三条
     n2=(len(z)+len(x)*3+len(y)*6)*37-n3#一对
     n1=comb(39,3)-n2-n3#散牌
@@ -337,42 +337,42 @@ def value2(list):#前墩权值
     del z
     z=[n1/s,(n2+n1)/s,(n3+n2+n1)/s]
     return z
-def max1(list,n):#判断牌的大小
-    x=num(list)
+def max1(list12,n):#判断牌的大小
+    x=num(list12)
     d=0
     for i in range(0,len(x)):
         if len(x[i])==n:
             d=i+1
     return d
-def grade(list):#牌型分级
-    if len(list)==5:#中墩和后墩
-        if(len(No7(list))>0):
-            return [9,max1(list,1)]#同花顺
-        elif len(No6(list))>0:
-            return [8,max1(list,4)]#炸弹
-        elif (len(No3(list))==1)and (len(No2(list))==1):
-            return [7,max1(list,3)]#葫芦
-        elif (len(No5(list))==1):
-            return[6,max1(list,1)]#同花
-        elif (len(No4(list))==1):
-            return [5,max1(list,1)]#顺子
-        elif len(No3(list))==1:
-            return [4,max1(list,3)]#三条
-        elif len(No1(list))==1:
-            return [3,max1(list,2)]#连对
-        elif len(No2(list))==2:
-            return [2,max1(list,2)]#两对
-        elif len(No2(list))==1:
-            return [1,max1(list,2)]#一对
+def grade(list13):#牌型分级
+    if len(list13)==5:#中墩和后墩
+        if(len(No7(list13))>0):
+            return [9,max1(list13,1)]#同花顺
+        elif len(No6(list13))>0:
+            return [8,max1(list13,4)]#炸弹
+        elif (len(No3(list13))==1)and (len(No2(list13))==1):
+            return [7,max1(list13,3)]#葫芦
+        elif (len(No5(list13))==1):
+            return[6,max1(list13,1)]#同花
+        elif (len(No4(list13))==1):
+            return [5,max1(list13,1)]#顺子
+        elif len(No3(list13))==1:
+            return [4,max1(list13,3)]#三条
+        elif len(No1(list13))==1:
+            return [3,max1(list13,2)]#连对
+        elif len(No2(list13))==2:
+            return [2,max1(list13,2)]#两对
+        elif len(No2(list13))==1:
+            return [1,max1(list13,2)]#一对
         else:
-            return [0,max1(list,1)]#散牌
-    elif len(list)==3:#前墩
-        if len(No3(list))==1:
-            return[4,max1(list,3)]#三条
-        elif len(No2(list))==1:
-            return[1,max1(list,2)]#对子
+            return [0,max1(list13,1)]#散牌
+    elif len(list13)==3:#前墩
+        if len(No3(list13))==1:
+            return[4,max1(list13,3)]#三条
+        elif len(No2(list13))==1:
+            return[1,max1(list13,2)]#对子
         else:
-            return[0,max1(list,1)]#散牌
+            return[0,max1(list13,1)]#散牌
 def sanshunzi(x,n,ok):
     l=x
     for i in range(0, 13-n):
@@ -543,12 +543,12 @@ def getcard(list1,list2):#出牌
     #print(value(v3, grade(['&3', '$4', '&8']), 0), value(v2, grade(['*K', '*10', '#J', '$Q', '*A']), 2), value(v1, grade(['$2', '#2', '*2', '*6', '$6']), 3))
     #print(value(v3,grade(ca3),0),value(v2,grade(ca2),2),value(v1,grade(ca1),3))
     return [ca3,ca2,ca1]
-def getjson(id,list):#转化json格式
+def getjson(id,list14):#转化json格式
     z=['','','']
-    for i in range(0,len(list)):
-        for j in range(0,len(list[i])):
-            z[i]=z[i]+list[i][j]
-            if(j!=len(list[i])-1):
+    for i in range(0,len(list14)):
+        for j in range(0,len(list14[i])):
+            z[i]=z[i]+list14[i][j]
+            if(j!=len(list14[i])-1):
                 z[i]=z[i]+' '
     data = {'id': id, 'card':z}
     #string = json.dumps(data, ensure_ascii=False)
@@ -585,11 +585,11 @@ if __name__ == '__main__':
 
         rank()
         #regiseterAndBind('cjj','a123456','031702442','044118cjj')
-        pid,token,user_id = login('rain', 'wt8769054')
+        pid,token,user_id = login('xxx', 'xxx')
         data = gameend(token,t)
         print(data)
         #print(token)
-        '''
+      
         data = gameopen(token)
         #print(data)
         mycard = data[1].split(' ')
@@ -618,7 +618,7 @@ if __name__ == '__main__':
         t = id
         history(token,9)
         #print(string)
-        '''
+      
         time.sleep(15)
 
 
