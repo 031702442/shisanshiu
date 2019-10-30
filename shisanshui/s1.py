@@ -278,7 +278,6 @@ def value0(list16):#后墩计算权值
     z=[0/s,n2/s,(n3_1+n2)/s ,(n3_2+n3_1+n2)/s,(n4+n3_1+n3_2+n2)/s,(n5+n4+n3_2+n3_1+n2)/s,(n6+n5+n4+n3_1+n3_2+n2)/s,(n7+n6+n5+n4+n3_2+n3_1+n2)/s,(n8+n7+n6+n5+n4+n3_1+n3_2+n2)/s,(n9+n7+n6+n5+n4+n3_2+n3_1+n2)/s]#散牌、对子、两对、连对、三条、顺子、同花、葫芦、炸弹、同花顺
     return z
 def value1(list10):#中墩计算权值
-  
     x=No7(list10)
     n9=len(x)#同花顺
     n9=math.sqrt(n9)
@@ -618,5 +617,3 @@ if __name__ == '__main__':
         history(token,9)
         #print(string)
         time.sleep(15)
-
-
