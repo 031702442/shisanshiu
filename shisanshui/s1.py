@@ -4,8 +4,6 @@ import json
 import requests
 import re
 import time
-import random
-import http.client
 def  register(account,password):
     url='http://api.revth.com/register'
     form_data = {
@@ -27,18 +25,18 @@ def rank():#排行榜
     soup=json.loads(soup)
     #print(soup)
     return  soup
-def history(token,id):#历史战绩
+def history(token,id1):#历史战绩
     url='http://api.revth.com/history'
     headers={'X-Auth-Token':token}
-    data= {"page": 1, "limit": 28, "player_id": id}
+    data= {"page": 1, "limit": 28, "player_id": id1}
     #x=json.dumps(data, ensure_ascii=False)
     soup=requests.request("GET",url,headers=headers,params=data).text
     soup = json.loads(soup)
     #print(soup)
     return soup
 
-def gameend(token,id):
-    url='http://api.revth.com/history/'+str(id)
+def gameend(token,id2):
+    url='http://api.revth.com/history/'+str(id2)
     headers = {"X-Auth-Token": token}
     soup = requests.request("GET",url,headers=headers).text
     soup = json.loads(soup)
@@ -121,7 +119,6 @@ def PlayGame(data,token):
     return string
 #def submit()
 def num(List):#将卡牌根据数字进行分类
-    r1=r'\d+'
     numlist=[[],[],[],[],[],[],[],[],[],[],[],[],[]]
     for x in List :
         if x[1]=='J':
